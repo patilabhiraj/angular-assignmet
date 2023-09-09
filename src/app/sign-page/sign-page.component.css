@@ -1,0 +1,6 @@
+.error {
+    color: red;
+}
+.btn-success:disabled {
+    opacity: 0.3;
+}
