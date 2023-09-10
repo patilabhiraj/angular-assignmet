@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 })
 export class TwoStepComponent {
   otpForm: FormGroup;
+  staticOpt = "1111";
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.otpForm = this.formBuilder.group({
@@ -22,13 +23,20 @@ export class TwoStepComponent {
   }
 
   onSubmit() {
-    console.log("this ", this.otpForm.value)
+    const dynamicOtp = Object.values(this.otpForm.value);
+    const withoutCommas = dynamicOtp.join('');
+    if (this.staticOpt === withoutCommas) {
+      alert("Otp is valid");
+      this.router.navigateByUrl("dashboard");
+    } else {
+      alert("Otp is invalid");
+      this.otpForm.reset();
+    }
   }
 
   moveToNextInput(event, id) {
-    console.log("abhiraj", event.target.value, event);
-    const nextSibiling =  document.getElementById(`otp${id + 1}`)
-    if(event.target.value.length === 1 && nextSibiling !== null) {
+    const nextSibiling = document.getElementById(`otp${id + 1}`)
+    if (event.target.value.length === 1 && nextSibiling !== null) {
       nextSibiling.focus();
     }
 

@@ -8,25 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-page.component.css']
 })
 export class SignPageComponent implements OnInit {
-  registerForm: FormGroup;    
-  
+  registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private router:Router) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       mobile: ['', Validators.compose([Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])]
     });
   }
+
   onSubmit() {
-    
-    // stop here if form is invalid
-
     console.log('---form', this.registerForm.value);
-    if(this.registerForm.value.mobile){
-      this.router.navigateByUrl("two-step")
+    if (this.registerForm.value.mobile) {
+      this.router.navigateByUrl("two-step");
     }
-
   }
 
 }
